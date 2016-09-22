@@ -2,8 +2,11 @@ FROM centos/httpd:latest
 MAINTAINER darkoantic
 
 # Update and install latest packages and prerequisites
-RUN yum -y install https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-RUN yum -y install git composer php70w php70w-opcache php70w-cli php70w-common php70w-mysql php70w-mbstring php70w-pecl-redis
+RUN yum clean all && yum makecache fast \
+    && yum -y install https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && yum -y update \
+    && yum -y install git composer php70w php70w-opcache php70w-cli php70w-common php70w-mysql php70w-mbstring php70w-pecl-redis \
+    && yum -y install tcping which && yum clean all
+
 
 COPY config/php.ini /etc/php.ini
 
