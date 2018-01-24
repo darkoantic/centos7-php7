@@ -1,12 +1,16 @@
 FROM centos/httpd:latest
 MAINTAINER darkoantic
 
+COPY scripts/ /
+
 # Update and install latest packages and prerequisites
 RUN yum clean all && yum makecache fast \
     && yum -y install https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && yum -y update \
-    && yum -y install git composer php70w php70w-opcache php70w-cli php70w-common php70w-mysql php70w-mbstring php70w-pecl-redis \
-    && yum -y install php70w-pecl-xdebug.x86_64 \
-    && yum -y install tcping which && yum clean all
+    && yum -y install git php71w-cli mod_php71w.x86_64 php71w-opcache php71w-common php71w-mysql php71w-mbstring php71w-pecl-redis \
+    && yum -y install php71w-pecl-xdebug.x86_64 \
+    && yum -y install tcping which wget && yum clean all \
+    && chmod +x /install-composer.sh && /install-composer.sh && rm /install-composer.sh \
+    && mv /composer.phar /usr/bin/composer && chmod a+x /usr/bin/composer
 
 COPY config/php.ini /etc/php.ini
 
