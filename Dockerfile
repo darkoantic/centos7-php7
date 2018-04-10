@@ -6,7 +6,7 @@ COPY scripts/ /
 # Update and install latest packages and prerequisites
 RUN yum clean all && yum makecache fast \
     && yum -y install https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && yum -y update \
-    && yum -y install git php71w-cli mod_php71w.x86_64 php71w-opcache php71w-common php71w-mysql php71w-mbstring php71w-pecl-redis \
+    && yum -y install git php71w-cli mod_php71w php71w-opcache php71w-common php71w-mysql php71w-mbstring php71w-pecl-redis php71w-gd \
     && yum -y install tcping which wget && yum clean all \
     && chmod +x /install-composer.sh && /install-composer.sh && rm /install-composer.sh \
     && mv /composer.phar /usr/bin/composer && chmod a+x /usr/bin/composer
