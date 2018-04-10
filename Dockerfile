@@ -1,4 +1,4 @@
-FROM centos/httpd:latest
+FROM centos:7
 MAINTAINER darkoantic
 
 COPY scripts/ /
